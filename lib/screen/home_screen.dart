@@ -1,3 +1,4 @@
+import 'package:dg_group/screen/check_ip_screen.dart';
 import 'package:flutter/material.dart';
 import 'video_list_screen.dart';
 
@@ -77,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 12),
 
                     SizedBox(
-                      height: 80,
+                      height: 70,
                       child: ListView.separated(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         scrollDirection: Axis.horizontal,
@@ -85,26 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         separatorBuilder: (_, __) => const SizedBox(width: 8),
                         itemBuilder: (context, i) {
                           final bool selected = i == _selectedIndex;
-                          return GestureDetector(
-                            onTap: () => setState(() => _selectedIndex = i),
-                            child: Container(
-                              width: 60,
-                              decoration: BoxDecoration(
-                                color: selected ? const Color(0xFFE4B764) : Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  if (!selected)
-                                    const BoxShadow(
-                                      color: Colors.black12,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    )
-                                ],
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
+                          return Column(
+                            children: [
+                              Text(
                                     _weekdays[i],
                                     style: TextStyle(
                                       fontSize: 12,
@@ -113,27 +97,50 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                   const SizedBox(height: 4),
-                                  Text(
-                                    _dates[i],
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: selected ? FontWeight.bold : FontWeight.normal,
-                                      color: selected ? Colors.black87 : Colors.grey[800],
-                                    ),
+                              GestureDetector(
+                                onTap: () => setState(() => _selectedIndex = i),
+                                child: Container(
+                                  width: 60,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: selected ? const Color(0xFFE4B764) : Colors.white,
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      if (!selected)
+                                        const BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        )
+                                    ],
                                   ),
-                                  const SizedBox(height: 4),
-                                  if (selected)
-                                    Container(
-                                      height: 3,
-                                      width: 24,
-                                      decoration: BoxDecoration(
-                                        color: Colors.black87,
-                                        borderRadius: BorderRadius.circular(1.5),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      
+                                      Text(
+                                        _dates[i],
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                                          color: selected ? Colors.black87 : Colors.grey[800],
+                                        ),
                                       ),
-                                    ),
-                                ],
+                                      const SizedBox(height: 4),
+                                      if (selected)
+                                        Container(
+                                          height: 3,
+                                          width: 24,
+                                          decoration: BoxDecoration(
+                                            color: Colors.black87,
+                                            borderRadius: BorderRadius.circular(1.5),
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           );
                         },
                       ),
@@ -147,36 +154,47 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                             decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(6),
+                              color: Colors.white
+                              ,borderRadius: BorderRadius.circular(6),
+                              
                             ),
+                            padding: EdgeInsets.all(8),
                             child: Row(
-                              children: const [
-                                Icon(Icons.live_tv_outlined, size: 16, color: Colors.white),
-                                SizedBox(width: 4),
-                                Text('LIVE',
-                                    style: TextStyle(
-                                        color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                              children: [
+                                Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.live_tv_outlined, size: 16, color: Colors.white),
+                                  SizedBox(width: 4),
+                                  Text('LIVE',
+                                      style: TextStyle(
+                                          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                                ],
+                              ),
+                            ),
+                            
+                            const SizedBox(width: 12),
+                            Container(
+                              width: 32,
+                              height: 32,
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              alignment: Alignment.center,
+                              child: const Text('6',
+                                  style: TextStyle(
+                                      color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
+                            ),
                               ],
                             ),
                           ),
-
-                          const SizedBox(width: 12),
-                          Container(
-                            width: 32,
-                            height: 32,
-                            decoration: const BoxDecoration(
-                              color: Colors.red,
-                              shape: BoxShape.circle,
-                            ),
-                            alignment: Alignment.center,
-                            child: const Text('6',
-                                style: TextStyle(
-                                    color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
-                          ),
-
                           const SizedBox(width: 16),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -312,6 +330,39 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      floatingActionButton:  Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () => {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const CheckIpScreen()))
+                  },
+                  borderRadius: BorderRadius.circular(30),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.orange,        
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Icon(Icons.task_alt_outlined, color: Colors.white),
+                        SizedBox(width: 8),
+                        Text(
+                          'Task 2',               
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
     );
   }
 }

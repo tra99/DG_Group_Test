@@ -130,7 +130,7 @@ class _VideoThumbnailItemState extends State<VideoThumbnailItem> {
                               placeholder: (context, url) => Container(
                                 color: Colors.grey[300],
                                 child: const Center(
-                                  child: CircularProgressIndicator(),
+                                  child: CircularProgressIndicator(color: Colors.blue,),
                                 ),
                               ),
                               errorWidget: (context, url, error) => Container(
