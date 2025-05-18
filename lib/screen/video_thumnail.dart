@@ -62,6 +62,10 @@ class _VideoThumbnailItemState extends State<VideoThumbnailItem> {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now(); 
+    final day   = now.day;                 // e.g. 13
+    final month = now.month; 
+    final year=now.year;
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
@@ -75,49 +79,70 @@ class _VideoThumbnailItemState extends State<VideoThumbnailItem> {
           },
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: Row(
               children: [
-                AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: _isPlaying
-                      ? Chewie(controller: _chewieController!)
-                      : Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            CachedNetworkImage(
-                              imageUrl: widget.item.thumbnailUrl,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              placeholder: (context, url) => Container(
-                                color: Colors.grey[300],
-                                child: const Center(
-                                    child: CircularProgressIndicator()),
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                color: Colors.grey[300],
-                                child: const Icon(Icons.videocam, size: 50),
-                              ),
-                              memCacheWidth: (width * 1.5).toInt(),
-                            ),
-                            const Icon(
-                              Icons.play_circle_fill,
-                              size: 50,
-                              color: Colors.white70,
-                            ),
-                          ],
-                        ),
+                Container(
+                  color: Colors.grey,
+                  child: Text('$day/$month/$year'),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    widget.item.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 35, 35, 35),
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  padding: EdgeInsets.all(6),
+                  child: Column(
+                    children: [
+                      Icon(Icons.notifications,color: Colors.yellow[600]),
+                      Text('Đặt lịch',style: TextStyle(color: Colors.yellow[600]),)
+                    ],
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: _isPlaying
+                          ? Chewie(controller: _chewieController!)
+                          : Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                CachedNetworkImage(
+                                  imageUrl: widget.item.thumbnailUrl,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  placeholder: (context, url) => Container(
+                                    color: Colors.grey[300],
+                                    child: const Center(
+                                        child: CircularProgressIndicator()),
+                                  ),
+                                  errorWidget: (context, url, error) => Container(
+                                    color: Colors.grey[300],
+                                    child: const Icon(Icons.videocam, size: 50),
+                                  ),
+                                  memCacheWidth: (width * 1.5).toInt(),
+                                ),
+                                const Icon(
+                                  Icons.play_circle_fill,
+                                  size: 50,
+                                  color: Colors.white70,
+                                ),
+                              ],
+                            ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        widget.item.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

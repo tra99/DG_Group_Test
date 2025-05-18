@@ -85,7 +85,6 @@ class VideoThumbnailList extends HookWidget {
     }, [scrollController]);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Popular Videos')),
       body: isLoading.value
           ? const Center(child: CircularProgressIndicator())
           : SmartRefresher(
